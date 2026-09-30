@@ -1,0 +1,180 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink-950: #050505;
+  --color-ink-900: #080808;
+  --color-ink-800: #0b0b0b;
+  --color-ink-700: #111111;
+  --color-gold-600: #c78328;
+  --color-gold-500: #d99a3a;
+  --color-gold-400: #e8ad55;
+  --color-gold-300: #f5c56b;
+  --color-gold-200: #ffe0a0;
+  --color-cream: #f7f5ef;
+
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-script: var(--font-script), "Brush Script MT", cursive;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: #050505;
+}
+
+body {
+  background: #050505;
+  color: #f7f5ef;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(217, 154, 58, 0.35);
+}
+
+:focus-visible {
+  outline: 2px solid #f5c56b;
+  outline-offset: 3px;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ---------- Gold text ---------- */
+.text-gold-gradient {
+  background: linear-gradient(180deg, #ffe0a0 0%, #e8ad55 48%, #c78328 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---------- Surfaces ---------- */
+.glass {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 20px 50px -25px rgba(0, 0, 0, 0.8);
+}
+.glass-gold {
+  border-color: rgba(217, 154, 58, 0.3);
+}
+
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+  mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+}
+
+.noise {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E");
+  opacity: 0.05;
+}
+
+/* ---------- Atmosphere: breathing glow + slow smoke ---------- */
+.glow {
+  background: radial-gradient(closest-side, rgba(217, 154, 58, 0.28), transparent 70%);
+  animation: breathe 12s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.smoke {
+  /* Radial gradient is already soft; a blur filter here is costly to repaint. */
+  background: radial-gradient(ellipse at center, rgba(217, 154, 58, 0.22), transparent 70%);
+  opacity: 0.6;
+  will-change: transform, opacity;
+}
+.smoke-a {
+  animation: smoke-a 16s ease-in-out infinite alternate;
+}
+.smoke-b {
+  animation: smoke-b 13s ease-in-out infinite alternate;
+}
+.smoke-c {
+  animation: smoke-c 18s ease-in-out infinite alternate;
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.08);
+  }
+}
+@keyframes smoke-a {
+  from {
+    transform: translate3d(-5%, 3%, 0) scale(1) rotate(0deg);
+    opacity: 0.35;
+  }
+  to {
+    transform: translate3d(7%, -6%, 0) scale(1.2) rotate(14deg);
+    opacity: 0.7;
+  }
+}
+@keyframes smoke-b {
+  from {
+    transform: translate3d(6%, 4%, 0) scale(1.1) rotate(0deg);
+    opacity: 0.6;
+  }
+  to {
+    transform: translate3d(-6%, -3%, 0) scale(0.95) rotate(-12deg);
+    opacity: 0.3;
+  }
+}
+@keyframes smoke-c {
+  from {
+    transform: translate3d(0, 6%, 0) scale(0.9) rotate(0deg);
+    opacity: 0.3;
+  }
+  to {
+    transform: translate3d(-4%, -8%, 0) scale(1.25) rotate(8deg);
+    opacity: 0.65;
+  }
+}
+@keyframes rec {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+.rec-dot {
+  animation: rec 3s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .glow,
+  .smoke,
+  .rec-dot {
+    animation: none !important;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

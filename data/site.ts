@@ -4,7 +4,7 @@ export const site = {
   title: "7H Media — Your Face = Your Business",
   description:
     "7H Media is a digital marketing and creative media agency helping brands grow through strategy, content, performance marketing and digital experiences.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://7hmedia.com",
+  url: "https://7hmediaagency.com", // canonical production origin (non-www); never env-driven so previews cannot leak into metadata
   // TODO: replace with the real contact details before launch.
   email: "hello@7hmedia.com",
   phone: "+91 00000 00000",

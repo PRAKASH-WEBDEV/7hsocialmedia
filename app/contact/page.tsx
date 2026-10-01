@@ -1,14 +1,18 @@
-import type { Metadata } from "next";
 import { Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import ContactForm from "@/components/contact/ContactForm";
 import Reveal from "@/components/ui/Reveal";
 import { Eyebrow, Gold } from "@/components/ui/SectionHeading";
+import JsonLd from "@/components/seo/JsonLd";
 import { site, whatsappLink } from "@/data/site";
+import { breadcrumbNode, graph, pageMetadata, webPageJsonLd } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Contact",
-  description: "Start a project with 7H Media. Tell us about your brand and we'll build a custom strategy.",
+const seo = {
+  title: "Contact Us: Start a Project",
+  description: "Start a project with 7H Media. Tell us about your brand and goals and we'll build a custom strategy.",
+  path: "/contact",
 };
+
+export const metadata = pageMetadata(seo);
 
 const details = [
   { icon: Mail, label: "Email", value: site.email, href: `mailto:${site.email}` },
@@ -19,6 +23,8 @@ const details = [
 
 export default function ContactPage() {
   return (
+    <>
+    <JsonLd data={graph(webPageJsonLd(seo, "ContactPage"), breadcrumbNode(seo.path, "Contact"))} />
     <section className="relative pb-24 pt-32 sm:pt-40" aria-labelledby="contact-heading">
       <div className="mx-auto grid max-w-[1240px] gap-14 px-4 sm:px-6 lg:grid-cols-[1fr_1.15fr]">
         <Reveal>
@@ -58,5 +64,6 @@ export default function ContactPage() {
         </Reveal>
       </div>
     </section>
+    </>
   );
 }

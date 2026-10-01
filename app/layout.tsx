@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Allura, Plus_Jakarta_Sans } from "next/font/google";
 import { site } from "@/data/site";
+import JsonLd from "@/components/seo/JsonLd";
+import { DEFAULT_TITLE, OG_IMAGE, SITE_NAME, graph, organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 import Footer from "@/components/layout/Footer";
 import Navbar from "@/components/layout/Navbar";
 import Providers from "@/components/layout/Providers";
@@ -13,21 +15,35 @@ const script = Allura({ subsets: ["latin"], weight: "400", variable: "--font-scr
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: { default: site.title, template: "%s | 7H Media" },
+  title: { default: DEFAULT_TITLE, template: `%s | ${SITE_NAME}` },
   description: site.description,
-  applicationName: "7H Media",
+  applicationName: SITE_NAME,
+  keywords: [
+    "digital marketing agency",
+    "creative agency",
+    "social media marketing",
+    "performance marketing",
+    "content creation",
+    "brand strategy",
+    "influencer marketing",
+    "web development",
+  ],
+  alternates: { canonical: "/" },
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 } },
   openGraph: {
     type: "website",
-    siteName: "7H Media",
-    title: site.title,
+    siteName: SITE_NAME,
+    title: DEFAULT_TITLE,
     description: site.description,
     url: "/",
     locale: "en_IN",
+    images: [OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
-    title: site.title,
+    title: DEFAULT_TITLE,
     description: site.description,
+    images: [OG_IMAGE.url],
   },
 };
 
@@ -46,6 +62,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Skip to content
         </a>
+        <JsonLd data={graph(organizationJsonLd, websiteJsonLd)} />
         <Atmosphere />
         <Providers>
           <Navbar />

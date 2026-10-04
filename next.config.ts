@@ -1,10 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  images: {
-    formats: ["image/avif", "image/webp"],
-  },
-  poweredByHeader: false,
+  allowedDevOrigins: ["192.168.1.41"],
 };
 
 export default nextConfig;

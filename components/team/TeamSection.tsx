@@ -45,7 +45,7 @@ export default function TeamSection({ variant = "carousel", showLink, headingAs 
                 Behind Your <Gold>Growth.</Gold>
               </span>
             }
-            description="A passionate team of strategists, creators, designers and marketers working together to bring your brand's story to life."
+            description="A young, skilled team of video editors, designers and developers, led by founder Ashish Thakur, bringing your brand's story to life."
             action={showLink ? <GoldButton href="/team" variant="outline" size="sm">Meet Our Full Team</GoldButton> : undefined}
           />
         </Reveal>
@@ -77,12 +77,12 @@ export default function TeamSection({ variant = "carousel", showLink, headingAs 
               {team.map((m, i) => (
                 <div
                   key={m.slug}
-                  className="w-[44%] shrink-0 snap-start sm:w-[30%] md:w-[23%] lg:w-[calc((100%-60px)/6)]"
+                  className="w-[44%] shrink-0 snap-start sm:w-[30%] md:w-[30%] lg:w-[calc((100%-24px)/3)]"
                 >
                   <TeamCard
                     member={m}
                     featured={i === 0}
-                    sizes="(min-width: 1024px) 190px, (min-width: 640px) 30vw, 44vw"
+                    sizes="(min-width: 1024px) 400px, (min-width: 640px) 30vw, 44vw"
                   />
                 </div>
               ))}

@@ -6,7 +6,7 @@ import { breadcrumbNode, graph, pageMetadata, teamJsonLd, webPageJsonLd } from "
 const seo = {
   title: "Meet Our Team",
   description:
-    "Meet the strategists, creators, designers and marketers behind 7H Media.",
+    "Meet the video editors, designers and developers behind 7H Media, the digital marketing startup founded by Ashish Thakur.",
   path: "/team",
 };
 

@@ -60,7 +60,7 @@ export default function Hero() {
           </motion.h1>
 
           <motion.p variants={item} className="mt-7 max-w-md text-lg leading-relaxed text-white/70">
-            We create strategy, content and campaigns that turn attention into measurable growth.
+            Founded by Ashish Thakur, 7H Media is a digital marketing startup creating strategy, content and campaigns that turn attention into measurable growth.
           </motion.p>
 
           <motion.div variants={item} className="mt-9 flex flex-wrap gap-3">
@@ -112,7 +112,7 @@ export default function Hero() {
                 >
                   <Image
                     src={member.heroImage ?? member.image}
-                    alt={`${member.name}, ${member.role} at 7H Media, in a cinematic studio`}
+                    alt={`${member.name}, ${member.role} at 7H Media, founder of 7H Media`}
                     fill
                     priority={active === 0}
                     sizes="(min-width: 1024px) 380px, 70vw"
@@ -179,17 +179,19 @@ export default function Hero() {
                     i === active ? "border-gold-400 shadow-[0_0_18px_-4px_rgba(232,173,85,0.7)]" : "border-white/15 opacity-75 hover:border-white/40 hover:opacity-100"
                   }`}
                 >
-                  <Image src={m.image} alt="" fill sizes="56px" className="object-cover object-top" />
+                  <Image src={m.heroImage ?? m.image} alt="" fill sizes="56px" className="object-cover object-top" />
                 </button>
               ))}
-              <button
-                type="button"
-                onClick={() => setActive((active + 1) % heroSlides.length)}
-                aria-label="Next team member"
-                className="grid size-[52px] place-items-center rounded-full border border-gold-500/50 bg-ink-950/70 text-gold-300 backdrop-blur transition-colors hover:border-gold-300 hover:bg-gold-500/15 sm:size-14"
-              >
-                <ChevronRight aria-hidden className="size-5" />
-              </button>
+              {heroSlides.length > 1 && (
+                <button
+                  type="button"
+                  onClick={() => setActive((active + 1) % heroSlides.length)}
+                  aria-label="Next team member"
+                  className="grid size-[52px] place-items-center rounded-full border border-gold-500/50 bg-ink-950/70 text-gold-300 backdrop-blur transition-colors hover:border-gold-300 hover:bg-gold-500/15 sm:size-14"
+                >
+                  <ChevronRight aria-hidden className="size-5" />
+                </button>
+              )}
             </div>
           </motion.div>
         </div>

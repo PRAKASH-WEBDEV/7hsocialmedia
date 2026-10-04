@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import CtaSection from "@/components/layout/CtaSection";
 import Hero from "@/components/hero/Hero";
-import TrustedBrands from "@/components/hero/TrustedBrands";
 import FeaturedShowcase from "@/components/portfolio/FeaturedShowcase";
 import PortfolioSection from "@/components/portfolio/PortfolioSection";
 import ServicesSection from "@/components/services/ServicesSection";
@@ -20,7 +19,6 @@ export default function HomePage() {
     <>
       <JsonLd data={graph(webPageJsonLd({ path: "/", title: DEFAULT_TITLE, description: site.description }))} />
       <Hero />
-      <TrustedBrands />
       <TeamSection showLink />
       <PortfolioSection limit={5} showAllLink />
       <FeaturedShowcase />

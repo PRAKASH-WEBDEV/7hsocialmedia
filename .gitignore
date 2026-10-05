@@ -12,7 +12,9 @@ next-env.d.ts
 .vercel
 
 # Env
-.env*.local
+.env
+.env*
+!.env.example
 
 # Editor
 .vscode/*

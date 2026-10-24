@@ -22,8 +22,8 @@ export const team: TeamMember[] = [
     quote: "Every frame should earn its place on screen.",
   },
   {
-    slug: "aman",
-    name: "Aman",
+    slug: "vivek",
+    name: "Vivek",
     role: "3D UI/UX Designer",
     specialty: "3D, UI & UX Design",
     bio: "Designs immersive 3D visuals and intuitive interfaces that make brands feel premium and easy to use.",

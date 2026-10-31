@@ -112,7 +112,7 @@ export default function Hero() {
                 >
                   <Image
                     src={member.heroImage ?? member.image}
-                    alt={`${member.name}, ${member.role} at 7H Media, founder of 7H Media`}
+                    alt={`${member.name}, ${member.role} of 7H Media`}
                     fill
                     priority={active === 0}
                     sizes="(min-width: 1024px) 380px, 70vw"
@@ -161,13 +161,13 @@ export default function Hero() {
                   <p className="mt-2 text-sm leading-relaxed text-cream/90">&ldquo;{member.quote}&rdquo;</p>
                   <footer className="mt-3 text-xs text-white/50">
                     <span className="font-script text-2xl leading-none text-gold-300">{member.name}</span>
-                    <span className="mt-1 block">{member.role}, 7H Media</span>
+                    <span className="mt-1 block">{member.role} of 7H Media</span>
                   </footer>
                 </motion.blockquote>
               </AnimatePresence>
             </GlassCard>
 
-            <div className="flex items-center gap-2.5" role="group" aria-label="Team leaders">
+            <div className="flex items-center gap-2.5" role="group" aria-label="Founders">
               {heroSlides.map((m, i) => (
                 <button
                   key={m.slug}

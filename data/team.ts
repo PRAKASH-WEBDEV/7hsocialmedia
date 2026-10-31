@@ -45,7 +45,7 @@ export const team: TeamMember[] = [
 export const leader: TeamMember = {
   slug: "ashish",
   name: "Ashish Thakur",
-  role: "Team Leader",
+  role: "Founder",
   specialty: "Singer & Founder",
   bio: "Singer turned entrepreneur who founded 7H Media to help brands grow through digital marketing.",
   image: "/pic01.png",

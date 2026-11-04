@@ -1,4 +1,5 @@
 import { stats } from "@/data/site";
+import CountUp from "@/components/ui/CountUp";
 
 export default function HeroStats() {
   return (
@@ -9,7 +10,7 @@ export default function HeroStats() {
           className={`sm:px-5 ${i === 0 ? "sm:pl-0" : "sm:border-l sm:border-white/10"}`}
         >
           <dd className="text-3xl font-semibold tracking-tight text-gold-gradient sm:text-[2rem]">
-            {s.value}
+            <CountUp value={s.value} />
           </dd>
           <dt className="mt-1 text-xs text-white/40">{s.label}</dt>
         </div>

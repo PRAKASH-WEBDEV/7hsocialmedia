@@ -28,7 +28,7 @@ const item: Variants = {
 const portraitMask =
   "radial-gradient(ellipse 62% 78% at 48% 40%, #000 45%, transparent 100%)";
 
-export default function Hero() {
+export default function Hero({ festive = false }: { festive?: boolean }) {
   const [active, setActive] = useState(0);
   const member = heroSlides[active];
 
@@ -43,6 +43,17 @@ export default function Hero() {
       <div className="relative mx-auto grid max-w-[1240px] items-center gap-10 px-4 sm:px-6 lg:grid-cols-[1fr_1.12fr] lg:gap-6">
         {/* ---------- Copy ---------- */}
         <motion.div variants={container} initial="hidden" animate="show" className="relative z-10">
+          {festive && (
+            <motion.a
+              variants={item}
+              href="#diwali"
+              className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-gold-400/40 bg-gradient-to-r from-orange-500/15 to-gold-500/10 px-4 py-2 text-xs font-semibold text-gold-200 transition-colors hover:border-gold-300"
+            >
+              <span aria-hidden className="festive-pill-dot size-2 rounded-full bg-gold-300" />
+              Diwali Special · Festive campaigns now open
+              <ChevronRight aria-hidden className="size-3.5" />
+            </motion.a>
+          )}
           <motion.div variants={item}>
             <Eyebrow>Digital Marketing Agency</Eyebrow>
           </motion.div>

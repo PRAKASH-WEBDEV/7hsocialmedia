@@ -161,6 +161,137 @@ body {
   animation: rec 3s ease-in-out infinite;
 }
 
+/* ---------- Gold shimmer: a light sweep across gold headline words ---------- */
+.gold-shine {
+  background:
+    linear-gradient(110deg, transparent 38%, rgba(255, 250, 230, 0.95) 50%, transparent 62%),
+    linear-gradient(180deg, #ffe0a0 0%, #e8ad55 48%, #c78328 100%);
+  background-size: 260% 100%, 100% 100%;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gold-shine 7s ease-in-out infinite;
+}
+@keyframes gold-shine {
+  0% {
+    background-position: 160% 0, 0 0;
+  }
+  55%,
+  100% {
+    background-position: -60% 0, 0 0;
+  }
+}
+
+/* ---------- Diwali ---------- */
+.diya-flame {
+  aspect-ratio: 1 / 1.9;
+  transform: translateX(-50%);
+  transform-origin: 50% 100%;
+  border-radius: 50% 50% 50% 50% / 62% 62% 38% 38%;
+  background: radial-gradient(ellipse 60% 55% at 50% 72%, #fffbe8 0%, #ffe28a 30%, #ff9a2e 62%, rgba(255, 90, 20, 0) 74%);
+  filter: drop-shadow(0 0 6px rgba(255, 170, 60, 0.9));
+  animation: flicker 1.4s ease-in-out infinite alternate;
+}
+.diya-glow {
+  background: radial-gradient(closest-side, rgba(255, 170, 60, 0.35), transparent 70%);
+  animation: glow-pulse 2.6s ease-in-out infinite;
+}
+@keyframes flicker {
+  0% {
+    transform: translateX(-50%) scale(1, 1) rotate(-2deg);
+  }
+  30% {
+    transform: translateX(-52%) scale(0.92, 1.08) rotate(2deg);
+  }
+  60% {
+    transform: translateX(-48%) scale(1.05, 0.95) rotate(-1deg);
+  }
+  100% {
+    transform: translateX(-50%) scale(0.96, 1.12) rotate(1.5deg);
+  }
+}
+@keyframes glow-pulse {
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: translate(-50%, -35%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -35%) scale(1.12);
+  }
+}
+
+.bulb {
+  animation: twinkle 2.4s ease-in-out infinite;
+  filter: drop-shadow(0 0 4px currentColor);
+}
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.rangoli {
+  animation: spin 90s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.diwali-greeting {
+  text-shadow: 0 0 24px rgba(255, 170, 60, 0.55), 0 0 60px rgba(255, 122, 61, 0.3);
+}
+
+/* Border light that runs around festive cards on hover. */
+.festive-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(from var(--angle, 0deg), transparent 70%, #ffd66b, #ff7a3d, transparent);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s;
+  animation: border-run 3s linear infinite;
+}
+.festive-card:hover::before {
+  opacity: 1;
+}
+@property --angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+@keyframes border-run {
+  to {
+    --angle: 360deg;
+  }
+}
+
+.festive-pill-dot {
+  animation: glow-dot 1.6s ease-in-out infinite;
+}
+@keyframes glow-dot {
+  0%,
+  100% {
+    box-shadow: 0 0 6px 1px rgba(255, 170, 60, 0.8);
+  }
+  50% {
+    box-shadow: 0 0 14px 4px rgba(255, 122, 61, 0.9);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import CtaSection from "@/components/layout/CtaSection";
 import Hero from "@/components/hero/Hero";
+import DiwaliSection from "@/components/festive/DiwaliSection";
+import { isDiwali } from "@/data/festive";
 import FeaturedShowcase from "@/components/portfolio/FeaturedShowcase";
-import PortfolioSection from "@/components/portfolio/PortfolioSection";
 import ServicesSection from "@/components/services/ServicesSection";
 import TeamSection from "@/components/team/TeamSection";
 import JsonLd from "@/components/seo/JsonLd";
@@ -17,13 +18,14 @@ export const metadata: Metadata = {
 
 export default async function HomePage() {
   const uploaded = await getUploadedProjects();
+  const festive = isDiwali();
   return (
     <>
       <JsonLd data={graph(webPageJsonLd({ path: "/", title: DEFAULT_TITLE, description: site.description }))} />
-      <Hero />
+      <Hero festive={festive} />
+      {festive && <DiwaliSection />}
       <TeamSection showLink />
-      <PortfolioSection limit={5} showAllLink uploaded={uploaded} />
-      <FeaturedShowcase />
+      <FeaturedShowcase projects={uploaded} />
       <ServicesSection showLink />
       <CtaSection />
     </>

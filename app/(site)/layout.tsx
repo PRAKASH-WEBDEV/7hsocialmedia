@@ -2,6 +2,7 @@ import Footer from "@/components/layout/Footer";
 import Navbar from "@/components/layout/Navbar";
 import Providers from "@/components/layout/Providers";
 import Atmosphere from "@/components/ui/Atmosphere";
+import DiwaliSky from "@/components/festive/DiwaliSky";
 import ShutterSound from "@/components/ui/ShutterSound";
 
 /** Public site chrome; the admin panel renders without it. */
@@ -15,6 +16,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
         Skip to content
       </a>
       <Atmosphere />
+      <DiwaliSky />
       <Providers>
         <Navbar />
         <main id="main">{children}</main>

@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
 export const Gold = ({ children }: { children: ReactNode }) => (
-  <span className="text-gold-gradient">{children}</span>
+  <span className="gold-shine">{children}</span>
 );
 
 export function Eyebrow({ children }: { children: ReactNode }) {

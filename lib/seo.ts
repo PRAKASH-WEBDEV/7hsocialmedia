@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { site } from "@/data/site";
 import { services } from "@/data/services";
-import { projects } from "@/data/projects";
+import type { Project } from "@/data/projects";
 import { team } from "@/data/team";
 
 export const SITE_NAME = "7H Media";
@@ -133,7 +133,7 @@ export const serviceListJsonLd = {
   })),
 };
 
-export const workListJsonLd = {
+export const workListJsonLd = (projects: Project[]) => ({
   "@type": "ItemList",
   itemListElement: projects.map((p, i) => ({
     "@type": "ListItem",
@@ -143,11 +143,11 @@ export const workListJsonLd = {
       name: `${p.title}: ${p.subtitle}`,
       description: p.description,
       genre: p.category,
-      image: `${site.url}${p.thumbnail}`,
+      image: p.thumbnail.startsWith("http") ? p.thumbnail : `${site.url}${p.thumbnail}`,
       creator: { "@id": orgId },
     },
   })),
-};
+});
 
 export const teamJsonLd = team.map((m) => ({
   "@type": "Person",

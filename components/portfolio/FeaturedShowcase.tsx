@@ -1,14 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { featuredProject, projects, type Project } from "@/data/projects";
+import type { Project } from "@/data/projects";
 import GoldButton from "@/components/ui/GoldButton";
 import Reveal from "@/components/ui/Reveal";
 import SectionHeading, { Gold } from "@/components/ui/SectionHeading";
 import PlayButton from "./PlayButton";
 import { useProjectModal } from "./PortfolioModal";
-
-const sideProjects = projects.slice(0, 3);
 
 function SideCard({ project }: { project: Project }) {
   const { open } = useProjectModal();
@@ -40,9 +38,12 @@ function SideCard({ project }: { project: Project }) {
   );
 }
 
-export default function FeaturedShowcase() {
+/** The latest uploaded video, large, with the next three beside it. Hidden until there is one. */
+export default function FeaturedShowcase({ projects }: { projects: Project[] }) {
   const { open } = useProjectModal();
-  const f = featuredProject;
+  const [f, ...rest] = projects;
+  if (!f) return null;
+  const sideProjects = rest.slice(0, 3);
 
   return (
     <section className="relative py-20 sm:py-24" aria-labelledby="featured-heading">
@@ -62,11 +63,11 @@ export default function FeaturedShowcase() {
           />
         </Reveal>
 
-        <Reveal delay={0.1} className="mt-10 grid gap-4 lg:grid-cols-[2.35fr_1fr]">
+        <Reveal delay={0.1} className={`mt-10 grid gap-4 ${sideProjects.length ? "lg:grid-cols-[2.35fr_1fr]" : ""}`}>
           <div className="group relative min-h-[380px] overflow-hidden rounded-3xl border border-white/8 bg-ink-800 transition-colors duration-500 hover:border-gold-500/40 sm:min-h-[460px]">
             <Image
               src={f.thumbnail}
-              alt="Camera monitor on a production set during the University Admission Campaign shoot"
+              alt=""
               fill
               sizes="(min-width: 1024px) 65vw, 100vw"
               loading="lazy"
@@ -80,7 +81,7 @@ export default function FeaturedShowcase() {
             <div className="absolute inset-x-0 bottom-0 flex flex-col gap-6 p-6 sm:p-8 md:flex-row md:items-end md:justify-between">
               <div className="max-w-md">
                 <span className="rounded-full bg-gradient-to-b from-gold-300 to-gold-500 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-ink-950">
-                  Featured Project
+                  Latest Project
                 </span>
                 <h3 className="mt-3 text-2xl font-bold text-cream sm:text-3xl">{f.title}</h3>
                 <p className="mt-2 text-sm text-white/55">{f.description}</p>
@@ -103,11 +104,13 @@ export default function FeaturedShowcase() {
             />
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
-            {sideProjects.map((p) => (
-              <SideCard key={p.id} project={p} />
-            ))}
-          </div>
+          {sideProjects.length > 0 && (
+            <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
+              {sideProjects.map((p) => (
+                <SideCard key={p.id} project={p} />
+              ))}
+            </div>
+          )}
         </Reveal>
       </div>
     </section>

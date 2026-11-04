@@ -2,6 +2,7 @@ import CtaSection from "@/components/layout/CtaSection";
 import JsonLd from "@/components/seo/JsonLd";
 import FeaturedShowcase from "@/components/portfolio/FeaturedShowcase";
 import PortfolioSection from "@/components/portfolio/PortfolioSection";
+import { getUploadedProjects } from "@/lib/content";
 import { breadcrumbNode, graph, pageMetadata, webPageJsonLd, workListJsonLd } from "@/lib/seo";
 
 const seo = {
@@ -13,13 +14,14 @@ const seo = {
 
 export const metadata = pageMetadata(seo);
 
-export default function WorkPage() {
+export default async function WorkPage() {
+  const uploaded = await getUploadedProjects();
   return (
     <div className="pt-24 sm:pt-28">
       <JsonLd
         data={graph(webPageJsonLd(seo, "CollectionPage"), breadcrumbNode(seo.path, "Our Work"), workListJsonLd)}
       />
-      <PortfolioSection headingAs="h1" />
+      <PortfolioSection headingAs="h1" uploaded={uploaded} />
       <FeaturedShowcase />
       <CtaSection />
     </div>

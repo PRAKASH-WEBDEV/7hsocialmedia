@@ -21,3 +21,7 @@ next-env.d.ts
 !.vscode/extensions.json
 .idea
 .DS_Store
+
+# Local admin uploads (dev only; production uses Vercel Blob)
+/public/uploads
+/.content

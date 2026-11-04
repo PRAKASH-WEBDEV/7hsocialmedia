@@ -3,25 +3,32 @@
 import { useMemo, useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import { Clapperboard } from "lucide-react";
-import { projects, type Filter } from "@/data/projects";
+import { projects, type Filter, type Project } from "@/data/projects";
 import GoldButton from "@/components/ui/GoldButton";
 import Reveal from "@/components/ui/Reveal";
 import SectionHeading, { Gold } from "@/components/ui/SectionHeading";
 import PortfolioCard from "./PortfolioCard";
 import PortfolioFilters from "./PortfolioFilters";
 
-type Props = { limit?: number; showAllLink?: boolean; headingAs?: "h1" | "h2" };
+type Props = {
+  limit?: number;
+  showAllLink?: boolean;
+  headingAs?: "h1" | "h2";
+  /** Videos uploaded from the admin panel; shown before the built-in projects. */
+  uploaded?: Project[];
+};
 
 const SIZES_SMALL = "(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw";
 const SIZES_LARGE = "(min-width: 1024px) 50vw, 100vw";
 
-export default function PortfolioSection({ limit, showAllLink, headingAs = "h2" }: Props) {
+export default function PortfolioSection({ limit, showAllLink, headingAs = "h2", uploaded = [] }: Props) {
   const [filter, setFilter] = useState<Filter>("All");
 
   const items = useMemo(() => {
-    const filtered = filter === "All" ? projects : projects.filter((p) => p.category === filter);
+    const all = [...uploaded, ...projects];
+    const filtered = filter === "All" ? all : all.filter((p) => p.category === filter);
     return limit ? filtered.slice(0, limit) : filtered;
-  }, [filter, limit]);
+  }, [filter, limit, uploaded]);
 
   // Asymmetric layout (one 2x2 hero tile) only when it tiles a 4-column grid cleanly.
   const bento = items.length > 1 && (items.length - 1) % 4 === 0;

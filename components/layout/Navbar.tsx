@@ -47,7 +47,7 @@ export default function Navbar() {
                 <Link
                   href={l.href}
                   aria-current={isActive(l.href) ? "page" : undefined}
-                  className={`block rounded-full border px-5 py-2.5 text-[13px] font-medium transition-colors duration-300 ${
+                  className={`block whitespace-nowrap rounded-full border px-4 py-2.5 text-[13px] xl:px-5 font-medium transition-colors duration-300 ${
                     isActive(l.href)
                       ? "border-white/10 bg-white/[0.06] text-cream"
                       : "border-transparent text-white/60 hover:text-gold-200"

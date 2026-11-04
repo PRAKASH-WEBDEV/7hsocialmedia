@@ -3,12 +3,18 @@ import { randomUUID } from "node:crypto";
 import { mkdir, readFile, unlink, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { del, list, put } from "@vercel/blob";
+import { unstable_cache } from "next/cache";
 import { connection } from "next/server";
 import type { Category, Project } from "@/data/projects";
 
 // Admin-managed content. On Vercel everything lives in Vercel Blob (one JSON file per item,
 // written once and never overwritten, plus the uploaded media). Without a Blob token, local
 // dev falls back to .content/items.json and public/uploads.
+//
+// Reads are cached under CONTENT_TAG: Blob's list() is a billed "advanced operation", so it
+// must not run on every page view. The admin actions expire the tag after each change.
+
+export const CONTENT_TAG = "admin-content";
 
 type Base = { id: string; createdAt: string };
 
@@ -79,12 +85,16 @@ async function readBlob(): Promise<ContentItem[]> {
   return items.filter((i): i is ContentItem => i !== null);
 }
 
-/** All items, newest first. Always read per request so new uploads show immediately. */
+const readCached = unstable_cache(async () => (blobEnabled() ? readBlob() : readLocal()), [CONTENT_TAG], {
+  tags: [CONTENT_TAG],
+});
+
+/** All items, newest first. */
 export async function getAll(): Promise<ContentItem[]> {
   await connection();
   try {
-    const items = blobEnabled() ? await readBlob() : await readLocal();
-    return items.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+    const items = await readCached();
+    return [...items].sort((a, b) => b.createdAt.localeCompare(a.createdAt));
   } catch (err) {
     console.error("[content] read failed", err);
     return [];

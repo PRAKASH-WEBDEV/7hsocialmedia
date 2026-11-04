@@ -1,9 +1,10 @@
 "use server";
 
+import { updateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { checkCredentials } from "@/lib/auth";
 import { categories, type Category } from "@/data/projects";
-import { createItem, deleteItem, slugify, type BlogItem, type PostItem, type VideoItem } from "@/lib/content";
+import { CONTENT_TAG, createItem, deleteItem, slugify, type BlogItem, type PostItem, type VideoItem } from "@/lib/content";
 import { endSession, requireAdmin, startSession } from "@/lib/session";
 
 export type ActionResult = { ok: boolean; error?: string; email?: string };
@@ -19,6 +20,7 @@ async function run(fn: () => Promise<unknown>): Promise<ActionResult> {
   await requireAdmin();
   try {
     await fn();
+    updateTag(CONTENT_TAG);
     return { ok: true };
   } catch (err) {
     return { ok: false, error: err instanceof Error ? err.message : "Something went wrong." };
